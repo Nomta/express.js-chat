@@ -1,0 +1,10 @@
+{
+    "ignore": [
+		"node_modules/*", 
+		".git", 
+		".gitignore", 
+		"*.test.js", 
+		"README.md"
+	],
+    "delay": "3000"
+}
