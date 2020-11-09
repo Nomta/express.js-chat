@@ -8,7 +8,7 @@ module.exports = function(req, res, next) {
             res.json(error)
         }
         else {
-            res.render('error', { error })
+            res.render('error', { error, message: error.message })
         }
     }
     next()

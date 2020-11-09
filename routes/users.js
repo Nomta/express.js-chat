@@ -1,5 +1,5 @@
 var express = require('express');
-var { HttpError } = require('http-errors');
+var HttpError = require('../error/HttpError');
 const { isValidObjectId } = require('mongoose');
 var User = require('../models/user')
 

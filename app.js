@@ -2,6 +2,8 @@ var express = require('express');
 var session = require('express-session')
 var MongoStore = require('connect-mongo')(session);
 var createError = require('http-errors');
+var HttpError = require('./error/HttpError');
+var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var path = require('path');
 var logger = require('morgan');
@@ -25,11 +27,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session(sessionConfig));
-app.use(function(req, res, next) {
-  req.session.visitCount = req.session.visitCount + 1 || 1;
-  res.send('Visits: ' + req.session.visitCount)
-});
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(require('./middleware/getUser'))
 app.use(require('./middleware/sendHttpError'))
 
 app.use('/', indexRouter);
@@ -43,6 +42,9 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
+  if (err.status === 401) {
+    res.redirect('/login')
+  }
   if (req.app.get('env') === 'development') {
     if (err instanceof HttpError) {
       return res.sendHttpError(err)
