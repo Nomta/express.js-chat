@@ -9,6 +9,9 @@ var config = {
             httpOnly: true,
             maxAge: null
         }
+    },
+    crypto: {
+        length: 31
     }
 }
 

@@ -1,4 +1,5 @@
 var crypto = require('crypto')
+var config = require('../config')
 var mongoose = require('../connection')
 var AuthError = require('../error/AuthError')
 
@@ -26,11 +27,19 @@ schema.methods.encryptPassword = function(password) {
     return crypto.createHmac('sha1', this.salt).update(password).digest('hex')
 }
 
+schema.statics.generateSalt = function() {
+    return new Promise(function(resolve, reject) {
+        crypto.randomBytes(config.crypto.length, function(err, buffer) { 
+            if (err) reject(err); 
+            resolve(buffer.toString('hex'));
+        });
+    });
+}
+
 schema.virtual('password')
-    .set(function(password) {
-        this._plainPassword = password
-        this.salt = Math.random() + ''
-        this.passwordHash = this.encryptPassword(password)
+    .set(async function(password) {
+        this._plainPassword = password;
+        this.passwordHash = this.encryptPassword(password);
     })
     .get(function() {
         return this._plainPassword
@@ -59,13 +68,9 @@ schema.statics.authorize = async function(username, password) {
         }
       }
       else {
-        try {
-          var user = await User.create({ username, password })
-          return user
-        }
-        catch(err) {
-          throw err
-        }
+        var salt = await User.generateSalt();
+        var user = await User.create({ username, salt, password });
+        return user
       }
     }
     
