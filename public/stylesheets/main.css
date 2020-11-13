@@ -1,0 +1,20 @@
+a {
+  color: #00B7FF;
+}
+
+.list-group-item {
+  border-width: 0 0 2px;
+  margin-bottom: 0.25em;
+}
+
+.list-group-item.owner {
+  margin-left: 3em;
+}
+
+.list-group-item.partner {
+  margin-right: 3em;
+}
+
+.light {
+  background-color: #e9ecef;
+}

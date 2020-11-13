@@ -1,15 +1,12 @@
 var express = require('express');
 var session = require('express-session')
-var MongoStore = require('connect-mongo')(session);
 var createError = require('http-errors');
-var HttpError = require('./error/HttpError');
-var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var path = require('path');
 var logger = require('morgan');
-var mongoose = require('./connection');
+var HttpError = require('./error/HttpError');
+var store = require('./sessionStore');
 
-var store = new MongoStore({ mongooseConnection: mongoose.connection })
 var sessionConfig = Object.assign({}, require('./config').session, {store})
 
 var indexRouter = require('./routes/index');

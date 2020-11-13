@@ -4,6 +4,7 @@ var config = {
     },
     session: {
         secret: '123',
+        key: '123',
         cookie: {
             path: '/',
             httpOnly: true,
