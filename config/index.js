@@ -1,12 +1,12 @@
 var config = {
     mongodb: {
-        uri: 'mongodb://localhost/chat'
+        uri: "mongodb://localhost/chat"
     },
     session: {
-        secret: '123',
-        key: '123',
+        secret: "123",
+        key: "123",
         cookie: {
-            path: '/',
+            path: "/",
             httpOnly: true,
             maxAge: null
         }
@@ -14,6 +14,6 @@ var config = {
     crypto: {
         length: 31
     }
-}
+};
 
-module.exports = config
+module.exports = config;
