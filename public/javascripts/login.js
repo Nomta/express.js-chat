@@ -22,7 +22,7 @@ form &&
             });
 
             if (response.ok) {
-                return (window.location.href = "/");
+                return (window.location.href = "/chat");
             }
 
             login.classList.add("alert-danger");
