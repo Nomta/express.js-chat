@@ -1,4 +1,4 @@
-var router = require("express").Router();
+const router = require("express").Router();
 
 /* GET users listing. */
 router.get("/", require("../controllers/users").get);

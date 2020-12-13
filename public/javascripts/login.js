@@ -1,33 +1,33 @@
-var form = document.forms[0]
+const form = document.forms[0];
 
-form && form.addEventListener('submit', async function(e) {
-    e.preventDefault()
-    
-    var login = this.closest('#login')
-    var formData = {}
+form &&
+    form.addEventListener("submit", async function (e) {
+        e.preventDefault();
 
-    for (var { name, value } of form.elements) {
-        value && (formData[name] = value)
-    }
-    
-    try {
-        var response = await fetch('/login', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'x-requested-with': 'XMLHttpRequest'
-            },
-            body: JSON.stringify(formData)
-        })
+        const login = this.closest("#login");
+        const formData = {};
 
-        if (response.ok) {
-            return window.location.href = '/'
+        for (const { name, value } of form.elements) {
+            value && (formData[name] = value);
         }
 
-        login.classList.add('alert-danger')
-        form.reset()
-    }
-    catch(e) {
-        console.error(e)
-    }
-})
+        try {
+            const response = await fetch("/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-requested-with": "XMLHttpRequest"
+                },
+                body: JSON.stringify(formData)
+            });
+
+            if (response.ok) {
+                return (window.location.href = "/");
+            }
+
+            login.classList.add("alert-danger");
+            form.reset();
+        } catch (e) {
+            console.error(e);
+        }
+    });

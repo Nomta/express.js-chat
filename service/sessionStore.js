@@ -1,6 +1,8 @@
-var session = require("express-session");
-var mongoose = require("../service/connection");
-var MongoStore = require("connect-mongo")(session);
+const session = require("express-session");
+const mongoose = require("../service/connection");
+const MongoStore = require("connect-mongo")(session);
 
-var sessionStore = new MongoStore({ mongooseConnection: mongoose.connection });
+const sessionStore = new MongoStore({
+    mongooseConnection: mongoose.connection
+});
 module.exports = sessionStore;

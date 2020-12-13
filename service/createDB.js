@@ -1,5 +1,5 @@
-var mongoose = require("../service/connection");
-var User = require("../models/user");
+const mongoose = require("../service/connection");
+const User = require("../models/user");
 
 mongoose.connection.on("open", async function () {
     await User.deleteMany();

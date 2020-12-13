@@ -1,5 +1,7 @@
-var router = require("express").Router();
-var checkAuth = require("../middleware/checkAuth");
+const router = require("express").Router();
+const checkAuth = require("../middleware/checkAuth");
+
+console.log("HOME");
 
 router.get("/", require("../controllers/home").get);
 router.get("/login", require("../controllers/login").get);

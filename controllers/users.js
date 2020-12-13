@@ -1,5 +1,5 @@
-var User = require("../models/user");
-var { HttpError, AuthError } = require("../error");
+const User = require("../models/user");
+const { HttpError, AuthError } = require("../error");
 const { isValidObjectId } = require("mongoose");
 
 exports.get = function (req, res, next) {

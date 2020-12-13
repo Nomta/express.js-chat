@@ -1,9 +1,9 @@
-var crypto = require("crypto");
-var config = require("../config");
-var mongoose = require("../service/connection");
-var AuthError = require("../error/AuthError");
+const crypto = require("crypto");
+const config = require("../config");
+const mongoose = require("../service/connection");
+const AuthError = require("../error/AuthError");
 
-var schema = new mongoose.Schema({
+const schema = new mongoose.Schema({
     username: {
         type: String,
         unique: true,
@@ -55,10 +55,10 @@ schema.statics.authorize = async function (username, password) {
         throw new AuthError("Uncorrect data");
     }
 
-    var User = this;
+    const User = this;
 
     try {
-        var user = await User.findOne({ username });
+        const user = await User.findOne({ username });
 
         if (user) {
             if (user.checkPassword(password)) {
@@ -67,8 +67,8 @@ schema.statics.authorize = async function (username, password) {
                 throw new AuthError("Uncorrect password");
             }
         } else {
-            var salt = await User.generateSalt();
-            var user = await User.create({ username, salt, password });
+            const salt = await User.generateSalt();
+            const user = await User.create({ username, salt, password });
             return user;
         }
     } catch (err) {

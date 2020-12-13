@@ -1,4 +1,4 @@
-var config = {
+const config = {
     mongodb: {
         uri: "mongodb://localhost/chat"
     },

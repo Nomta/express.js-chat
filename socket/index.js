@@ -1,27 +1,27 @@
-var cookie = require("cookie");
-var cookieParser = require("cookie-parser");
-var config = require("../config");
-var store = require("../service/sessionStore");
-var User = require("../models/user");
-var AuthError = require("../error/AuthError");
-var HttpError = require("../error/HttpError");
+const cookie = require("cookie");
+const cookieParser = require("cookie-parser");
+const config = require("../config");
+const store = require("../service/sessionStore");
+const User = require("../models/user");
+const AuthError = require("../error/AuthError");
+const HttpError = require("../error/HttpError");
 
 module.exports = function (server) {
-    var io = require("socket.io")(server);
+    const io = require("socket.io")(server);
 
     io.use(async function (socket, next) {
-        var handshake = socket.request;
+        const handshake = socket.request;
         handshake.cookies = cookie.parse(handshake.headers.cookie || "");
 
-        var sidCookie = handshake.cookies[config.session.key];
-        var sid = cookieParser.signedCookie(sidCookie, config.session.secret);
+        const sidCookie = handshake.cookies[config.session.key];
+        const sid = cookieParser.signedCookie(sidCookie, config.session.secret);
 
         if (!sid) {
             next(new AuthError("Not authorized"));
         }
 
         try {
-            var session = await getSession(sid);
+            const session = await getSession(sid);
 
             if (!session) {
                 next(new HttpError(401, "No session"));
@@ -32,7 +32,7 @@ module.exports = function (server) {
             if (!session.user) {
                 next(new HttpError(403, "Anonymous session"));
             }
-            var user = await User.findById(session.user);
+            const user = await User.findById(session.user);
 
             if (!user) {
                 next(new HttpError(403, "Anonymous session"));
@@ -48,12 +48,12 @@ module.exports = function (server) {
     });
 
     io.on("connect", function (socket) {
-        var username = socket.handshake.user.username;
+        const username = socket.handshake.user.username;
 
         socket.broadcast.emit("join", { username });
 
         socket.on("message", function ({ message }) {
-            var data = { username, message };
+            const data = { username, message };
 
             socket.broadcast.emit("push", data);
             socket.emit("push", { owner: true, ...data });

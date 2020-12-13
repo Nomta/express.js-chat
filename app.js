@@ -1,18 +1,18 @@
-var express = require("express");
-var session = require("express-session");
-var createError = require("http-errors");
-var cookieParser = require("cookie-parser");
-var path = require("path");
-var logger = require("morgan");
-var HttpError = require("./error/HttpError");
-var store = require("./service/sessionStore");
+const express = require("express");
+const session = require("express-session");
+const createError = require("http-errors");
+const cookieParser = require("cookie-parser");
+const path = require("path");
+const logger = require("morgan");
+const HttpError = require("./error/HttpError");
+const store = require("./service/sessionStore");
 
-var sessionConfig = Object.assign({}, require("./config").session, { store });
+const sessionConfig = Object.assign({}, require("./config").session, { store });
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+const indexRouter = require("./routes/index");
+const usersRouter = require("./routes/users");
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.engine("ejs", require("ejs-locals"));
