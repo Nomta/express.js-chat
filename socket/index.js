@@ -5,6 +5,7 @@ const store = require("../service/sessionStore");
 const User = require("../models/user");
 const AuthError = require("../error/AuthError");
 const HttpError = require("../error/HttpError");
+const log = require("../service/log").bind(null, "chat");
 
 module.exports = function (server) {
     const io = require("socket.io")(server);
@@ -51,16 +52,19 @@ module.exports = function (server) {
         const username = socket.handshake.user.username;
 
         socket.broadcast.emit("join", { username });
+        log(`${username} is connected`);
 
         socket.on("message", function ({ message }) {
             const data = { username, message };
 
             socket.broadcast.emit("push", data);
             socket.emit("push", { owner: true, ...data });
+            log(`${username}: ${message}`);
         });
 
         socket.on("disconnect", function () {
             socket.broadcast.emit("leave", { username });
+            log(`${username} is disconnected`);
         });
     });
 };
