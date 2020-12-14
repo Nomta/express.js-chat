@@ -1,20 +1,37 @@
+html,
+body {
+    height: 100%;
+}
+
 a {
-  color: #00B7FF;
+    color: #00b7ff;
 }
 
 .list-group-item {
-  border-width: 0 0 2px;
-  margin-bottom: 0.25em;
+    border-width: 0 0 2px;
+    margin-bottom: 0.25em;
 }
 
 .list-group-item.owner {
-  margin-left: 3em;
+    margin-left: 3em;
 }
 
 .list-group-item.partner {
-  margin-right: 3em;
+    margin-right: 3em;
 }
 
 .light {
-  background-color: #e9ecef;
+    background-color: #e9ecef;
+}
+
+.header {
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+}
+
+.chat {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
 }

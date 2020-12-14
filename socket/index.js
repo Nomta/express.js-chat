@@ -5,7 +5,6 @@ const store = require("../service/sessionStore");
 const User = require("../models/user");
 const AuthError = require("../error/AuthError");
 const HttpError = require("../error/HttpError");
-const log = require("../service/log").bind(null, "chat");
 
 module.exports = function (server) {
     const io = require("socket.io")(server);

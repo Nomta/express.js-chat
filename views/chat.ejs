@@ -8,30 +8,30 @@
     <title><%=title %></title>
 </head>
 <body class="light">
-    <main>
-        <header class="bg-info mb-3">
-            <section class="container clearfix">
-                <% if (user) { %>
-                <h4 class="float-left text-white my-3"><%= user.username %></h4>
-                <a class="float-right text-white my-3" href="" id="logout">
-                    Logout
-                </a>
-                <% } else { %>
-                <a class="float-right text-white my-3" href="/login" id="login">
-                    Logout
-                </a>
-                <% } %>
-            </section>
-        </header>
-        <section class="container">
-            <form class="form-group pt-5 pb-2 row" id="form">
+    <header class="bg-info mb-3 header">
+        <section class="container clearfix">
+            <% if (user) { %>
+            <h4 class="float-left text-white my-3"><%= user.username %></h4>
+            <a class="float-right text-white my-3" href="" id="logout">
+                Logout
+            </a>
+            <% } else { %>
+            <a class="float-right text-white my-3" href="/login" id="login">
+                Logout
+            </a>
+            <% } %>
+        </section>
+    </header>
+    <section class="chat">
+        <div class="container">
+            <ul class="list-group pl-3 row" id="list"></ul>
+            <form class="form-group py-5 row" id="form">
                 <p class="col-10"><input type="text" autofocus class="form-control form-input"></p>
                 <p class="col-2"><button type="submit" class="btn btn-info">Submit</button></p>
             </form>
-            <ul class="list-group pl-3 row" id="list"></ul>
-        </section>
-        <footer></footer>
-    </main>
+        </div>
+    </section>
+    <footer></footer>
     <script src="javascripts/index.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="javascripts/chat.js"></script>

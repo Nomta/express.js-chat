@@ -10,8 +10,11 @@ const input = form.elements[0];
 
 form.addEventListener("submit", function (e) {
     e.preventDefault();
-    socket.emit("message", { message: input.value });
-    form.reset();
+
+    if (input.value) {
+        socket.emit("message", { message: input.value });
+        form.reset();
+    }
 });
 
 socket.on("join", function ({ username }) {
