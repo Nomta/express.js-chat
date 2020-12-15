@@ -51,19 +51,16 @@ module.exports = function (server) {
         const username = socket.handshake.user.username;
 
         socket.broadcast.emit("join", { username });
-        log(`${username} is connected`);
 
         socket.on("message", function ({ message }) {
             const data = { username, message };
 
             socket.broadcast.emit("push", data);
             socket.emit("push", { owner: true, ...data });
-            log(`${username}: ${message}`);
         });
 
         socket.on("disconnect", function () {
             socket.broadcast.emit("leave", { username });
-            log(`${username} is disconnected`);
         });
     });
 };
